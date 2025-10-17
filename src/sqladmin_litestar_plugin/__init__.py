@@ -9,6 +9,7 @@ from litestar.plugins.base import InitPluginProtocol
 from litestar.types.empty import Empty
 from litestar.utils.empty import value_or_default
 from starlette.applications import Starlette
+from .ext import patches
 
 if TYPE_CHECKING:
     from collections.abc import Sequence
@@ -127,7 +128,7 @@ class PathFixMiddleware:
         self.base_url = base_url.rstrip("/")
 
     async def __call__(
-        self, scope: st_types.Scope, receive: st_types.Receive, send: st_types.Send
+            self, scope: st_types.Scope, receive: st_types.Receive, send: st_types.Send
     ) -> None:
         orig_path = scope["path"]
         orig_raw = scope["raw_path"]
